@@ -6,10 +6,11 @@ void main() {
 }
 
 void test(){ 
-  final names = ['foo', 'Bar', 'Baz'];
+  var names = ['foo', 'Bar', 'Baz'];
   var name = names[2];
   var urefu = names.length;
-  print (name);
+  names.add('My Name');
+  print (names);
   print (urefu);
 }
 
