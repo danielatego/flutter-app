@@ -5,31 +5,12 @@ void main() {
   runApp(const MyApp());
 }
 
-void test(){ 
-  String? name = null;
-  name = 'Foo';
-  name = null;
-  print (name);
+void test(String? firstName,String? middleName,String? lastName){ 
+  String? name = firstName;
+  name ??= middleName; // assigns only if the value is not null and its initial assignment was null;
+  
+  print(name);
 
-  if (name == 'Foo')
-  {print ('baba');}
-  else if (name == null)
-    { print('Im null dummy');}
-
-  List<String>? names = null;// this is a list of of type string that is nullable
-  List<String?>? namese = [ 'foo', null, 'baz'];
- // print(name);
- // print(namese);
-
-  //cherry-picking non-null values ?? operator
-
-  const String? firstName = null;
-  const String? MiddleName = 'Bar';
-  const String? lastName = 'Baz';
-
-  const firstNonNullValue = firstName ?? MiddleName ?? lastName;
-
- // print(firstNonNullValue);
 }
 
 class MyApp extends StatelessWidget {
@@ -38,7 +19,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    test();
+    test('gupta', 'reck', 'Baz');
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
