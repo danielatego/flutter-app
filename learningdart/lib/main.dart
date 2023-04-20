@@ -6,12 +6,30 @@ void main() {
 }
 
 void test(){ 
-  var person = {
-    'age':20,
-    'name':'Foo',
-  };
-  person['last name']='Picaaso';
-  print(person);
+  String? name = null;
+  name = 'Foo';
+  name = null;
+  print (name);
+
+  if (name == 'Foo')
+  {print ('baba');}
+  else if (name == null)
+    { print('Im null dummy');}
+
+  List<String>? names = null;// this is a list of of type string that is nullable
+  List<String?>? namese = [ 'foo', null, 'baz'];
+ // print(name);
+ // print(namese);
+
+  //cherry-picking non-null values ?? operator
+
+  const String? firstName = null;
+  const String? MiddleName = 'Bar';
+  const String? lastName = 'Baz';
+
+  const firstNonNullValue = firstName ?? MiddleName ?? lastName;
+
+ // print(firstNonNullValue);
 }
 
 class MyApp extends StatelessWidget {
