@@ -5,12 +5,11 @@ void main() {
   runApp(const MyApp());
 }
 
-void test(String? firstName,String? middleName,String? lastName){ 
-  String? name = firstName;
-  name ??= middleName; // assigns only if the value is not null and its initial assignment was null;
-  
-  print(name);
-
+void test(List<String>? names){ 
+  final numberOfNames = names?.length;// length does not work with values that are nullable hence conditional invocation is used so that if not null the value's length can be determined
+  names?.add ('Atego');
+  print (names);
+  print (numberOfNames);
 }
 
 class MyApp extends StatelessWidget {
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    test('gupta', 'reck', 'Baz');
+    test([]);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
