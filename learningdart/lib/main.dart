@@ -6,11 +6,12 @@ void main() {
 }
 
 void test(){ 
-  var names = {'foo', 'bar', 'baz',};//this is a set
-  names.add('foo');
-  names.add('marsupials');
-  print(names.length);
-  print (names);
+  var person = {
+    'age':20,
+    'name':'Foo',
+  };
+  person['last name']='Picaaso';
+  print(person);
 }
 
 class MyApp extends StatelessWidget {
