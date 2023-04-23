@@ -5,19 +5,20 @@ void main() {
   runApp(const MyApp());
 }
 
-class Person{
-  final String name;
-
-  Person(this.name);
-  void printName(){ //this is a method prescribed to this class
-    print(name);
+class LivingThing{
+  void breathe(){
+    print("Living thing is breathing");
   }
-
+  void move(){
+    print( 'I\'m moving');//developers do not like repeating themselves remember that, that is why inheritance was created
+  }
 }
 
+class Cat extends LivingThing {}
+
 void test(){ 
-  final foo = Person("Foo Bar");
-  foo.printName();
+  final persian = Cat();
+  persian.move();
 }
 
 
