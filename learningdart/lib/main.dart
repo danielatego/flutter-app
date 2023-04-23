@@ -7,26 +7,30 @@ void main() {
 
 
 
-class Cat extends Object {
+class Cat  { // by default all classes extends the Object class
   final String name;
   Cat(this.name);
-  @override
-  bool operator ==(covariant Cat other) => other.name == name;
-
-  @override
-  int get hashCode => name.hashCode;
 }
+extension Run on Cat{ //adding a functionality to an existing class that does not belong to that class in itself but it may belong to a current source file that you use 
+  void run(){
+    print('Cat $name is running');
+  }
+}
+class Person{
+  final String firstName;
+  final String lastName;
 
+  Person(this.firstName, this.lastName);
+}
+extension Fullname on Person{
+  String get fullName=>"$firstName $lastName";
+
+}
 void test(){ 
-  //final thing = LivingThing(); an abstract class cannot be instantiated this statement will yield an error
-  final persian = Cat('foo');
-  final persian2 = Cat('foo');
-  if (persian == persian2){
-    print('they are equal');
-  }
-  else{
-    print(' they are not equal.');
-  }
+  final meow = Cat('persian');
+  (meow.run());
+  final foo = Person('foo', 'bar');
+  print(foo.fullName);
 }
 
 
