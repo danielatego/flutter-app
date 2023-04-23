@@ -6,22 +6,16 @@ void main() {
 }
 
 class Person{
-  void run(){
-    print('running');
+  final String name;
 
-  }
-  void breath(){
-    print('breathing');
-  }
+  Person(this.name);
+
 
 }
 
 void test(){ 
-  final personi = Person();
-  personi.run();
-  personi.breath();
-//an object is an instantiantion of a class.
-//personi, in our case is an object or instance of class person
+  final foo = Person("Foo Bar");
+  print(foo.name);
 }
 
 
