@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(const MyApp());
 }
+enum PersonPropeties{ firstName,lastName,age} // the first letter of an enumeration has to be uppercase and the rest of the letters lower case.
 
-void test(List<String>? names){ 
-  final numberOfNames = names?.length;// length does not work with values that are nullable hence conditional invocation is used so that if not null the value's length can be determined
-  names?.add ('Atego');
-  print (names);
-  print (numberOfNames);
+void test(){ 
+  const name = 'foo';
+  const otherName = 'foo';
+  print (PersonPropeties.firstName.name);
+
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    test([]);
+    test();
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
