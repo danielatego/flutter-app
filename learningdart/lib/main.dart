@@ -9,13 +9,15 @@ class Person{
   final String name;
 
   Person(this.name);
-
+  void printName(){ //this is a method prescribed to this class
+    print(name);
+  }
 
 }
 
 void test(){ 
   final foo = Person("Foo Bar");
-  print(foo.name);
+  foo.printName();
 }
 
 
