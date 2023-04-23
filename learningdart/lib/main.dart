@@ -5,18 +5,19 @@ void main() {
   runApp(const MyApp());
 }
 
-class LivingThing{
+abstract class LivingThing{ //an abstract class is a class that cannot be instantiated that is normally used for inheritance
   void breathe(){
     print("Living thing is breathing");
   }
   void move(){
-    print( 'I\'m moving');//developers do not like repeating themselves remember that, that is why inheritance was created
+    print( 'I\'m moving');
   }
 }
 
 class Cat extends LivingThing {}
 
 void test(){ 
+  //final thing = LivingThing(); an abstract class cannot be instantiated this statement will yield an error
   final persian = Cat();
   persian.move();
 }
