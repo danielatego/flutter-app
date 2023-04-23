@@ -17,10 +17,11 @@ class Person{
 }
 
 void test(){ 
-  final person = Person();
-  person.run();
-  person.breath();
-
+  final personi = Person();
+  personi.run();
+  personi.breath();
+//an object is an instantiantion of a class.
+//personi, in our case is an object or instance of class person
 }
 
 
