@@ -7,18 +7,26 @@ void main() {
 
 
 
-class Cat  {
+class Cat extends Object {
   final String name;
   Cat(this.name);
-  factory Cat.fluffBall(){
-    return Cat('Fluff Ball');
-  }
+  @override
+  bool operator ==(covariant Cat other) => other.name == name;
+
+  @override
+  int get hashCode => name.hashCode;
 }
 
 void test(){ 
   //final thing = LivingThing(); an abstract class cannot be instantiated this statement will yield an error
-  final persian = Cat.fluffBall();
-  print(persian.name);
+  final persian = Cat('foo');
+  final persian2 = Cat('foo');
+  if (persian == persian2){
+    print('they are equal');
+  }
+  else{
+    print(' they are not equal.');
+  }
 }
 
 
