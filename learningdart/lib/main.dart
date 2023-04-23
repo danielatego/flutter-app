@@ -4,21 +4,23 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(const MyApp());
 }
-enum AnimalType{ cat ,dog , bunny} // the first letter of an enumeration has to be uppercase and the rest of the letters lower case.
 
-void test(AnimalType animalType){ 
-switch (animalType) {
-  case AnimalType.bunny:
-    print('get that creature away from me');
-    break;
-  case AnimalType.cat:
-    print( 'Im not a big fan of cats');
-    break;
-  case AnimalType.dog:
-    print( 'Dogs are the best pets to keep.');
-    break;//return and break can be used interchangeably however break does not exit the function it only exists the switch.
+class Person{
+  void run(){
+    print('running');
+
+  }
+  void breath(){
+    print('breathing');
+  }
+
 }
-print('function is finished');
+
+void test(){ 
+  final person = Person();
+  person.run();
+  person.breath();
+
 }
 
 
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    test(AnimalType.dog);
+    test();
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
