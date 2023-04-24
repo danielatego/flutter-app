@@ -5,23 +5,26 @@ void main() {
   runApp(const MyApp());
 }
 
-Iterable<int> getOneTwoThree() sync* {
-  yield 1;
-  yield 2;
-  yield 3;
+class PairOfStrings{
+  final String value1;
+  final String value2;
+  PairOfStrings(this.value1,this.value2);
+}
+class PairOfIntegers{
+  final String value1;
+  final String value2;
+  PairOfIntegers(this.value1,this.value2);
+}
+
+class Pair<A,B>{ //generics
+  final A value1;
+  final B value2;
+  Pair(this.value1, this.value2);
 }
 
 void test() {
-  for (final value in getOneTwoThree()){
-    print(value);
-  }
-  for (final value in getOneTwoThree()){
-    print(value);
-    if (value == 2){
-      break;
-    }
-  } 
-  print(getOneTwoThree());
+
+  final names = Pair('foo', 'bar');
   }
 
 class MyApp extends StatelessWidget {
