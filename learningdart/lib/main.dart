@@ -9,8 +9,9 @@ Future <int> heavyFutureThatMultipliesByTwo(int a ){
 }
 
 
-void test(){
-  
+void test() async {
+final result =await heavyFutureThatMultipliesByTwo(10);
+print(result);
 }
 
 class MyApp extends StatelessWidget {
