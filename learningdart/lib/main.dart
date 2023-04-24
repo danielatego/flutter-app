@@ -4,36 +4,14 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(const MyApp());
 }
-
-
-
-class Cat  { // by default all classes extends the Object class
-  final String name;
-  Cat(this.name);
-}
-extension Run on Cat{ //adding a functionality to an existing class that does not belong to that class in itself but it may belong to a current source file that you use 
-  void run(){
-    print('Cat $name is running');
-  }
-}
-class Person{
-  final String firstName;
-  final String lastName;
-
-  Person(this.firstName, this.lastName);
-}
-extension Fullname on Person{
-  String get fullName=>"$firstName $lastName";
-
-}
-void test(){ 
-  final meow = Cat('persian');
-  (meow.run());
-  final foo = Person('foo', 'bar');
-  print(foo.fullName);
+Future <int> heavyFutureThatMultipliesByTwo(int a ){
+  return Future.delayed(const Duration(seconds: 3), ()=> a*2);
 }
 
 
+void test(){
+  
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
