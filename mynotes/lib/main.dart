@@ -41,10 +41,16 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           TextField(
-            controller:_email,            
+            controller:_email,
+            decoration: const InputDecoration(
+              hintText: 'Enter your email here',
+            ),            
           ),
           TextField(
             controller:_password,
+            decoration: const InputDecoration(
+              hintText: 'Enter yout password here',
+            ),
           ),
           TextButton(
             onPressed: () async {
