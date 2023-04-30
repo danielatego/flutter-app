@@ -10,7 +10,8 @@ void main() {
         primarySwatch: Colors.blue,
       ),
       home: const RegisterView(),
-    ),);
+      ),
+    );
 }
 
 class RegisterView extends StatefulWidget {
@@ -27,15 +28,15 @@ class _RegisterViewState extends State<RegisterView> {
   }
 }
 
-class HomePage extends StatefulWidget {
+class LoginView extends StatefulWidget {
 
-  const HomePage({super.key});
+  const LoginView({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _LoginViewState extends State<LoginView> {
   late final TextEditingController _email;
   late final TextEditingController _password;
 
