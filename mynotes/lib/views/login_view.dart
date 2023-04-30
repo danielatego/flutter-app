@@ -63,13 +63,25 @@ class _LoginViewState extends State<LoginView> {
                     onPressed: () async {
                       final email = _email.text;
                       final password = _password.text;
-                      final userCredential=await FirebaseAuth.instance
+                      try{
+                        final userCredential=await FirebaseAuth.instance
                         .signInWithEmailAndPassword
                         (
                           email: email,
                           password: password
                         );
                         print(userCredential);
+
+                      }
+                      on FirebaseAuthException catch(e){
+
+                      }
+                      catch (e) {//this is a catch all exceptions handling block
+                        print ('something bad happened');
+                        print(e.runtimeType);
+                        print(e);
+                      }
+                      
                     },
                     child: const Text('Login'),
                     ),
