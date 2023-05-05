@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mynotes/firebase_options.dart';
 import 'views/login_view.dart';
 import 'views/register_view.dart';
-import 'dart:developer';
+import 'dart:developer' as devtools show log;
 import 'views/veriry_email_view.dart';void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
@@ -69,8 +69,24 @@ class _NotesViewState extends State<NotesView> {
       appBar: AppBar(
         title: const Text('Main UI'),
         actions: [
-          PopupMenuButton<Menu>(onSelected: (value){
-            print(value);
+          PopupMenuButton<Menu>(
+            onSelected: (value) async{
+            switch (value){
+              
+              case Menu.logout:
+                final shouldLogout = await showlogOutDialog(context);
+                if (shouldLogout){
+                  await FirebaseAuth.instance.signOut();
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/login/', 
+                    (_) => false,
+                    );
+                }
+                break;
+              case Menu.login:
+                // TODO: Handle this case.
+                break;
+            }
           },
           itemBuilder: (context) {
             return const [
@@ -90,4 +106,30 @@ class _NotesViewState extends State<NotesView> {
       body: const Text('Hello World'),
     );
   }
+}
+Future <bool>showlogOutDialog(BuildContext context){
+  return showDialog<bool>(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text('Sign out'),
+        content: const Text ('Are you sure you want to sign out'),
+        actions: [
+          TextButton(
+            onPressed: (){
+              Navigator.of(context).pop(false);
+            }, 
+            child: const Text ('Cancel')
+            ),
+            TextButton(
+            onPressed: (){
+              Navigator.of(context).pop(true);
+            }, 
+            child: const Text ('Log out')
+            )
+        ],
+      );
+    },
+    
+    ). then((value)=>value ?? false );
 }
