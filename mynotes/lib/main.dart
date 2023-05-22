@@ -60,7 +60,7 @@ class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -92,13 +92,40 @@ class _HomePageState extends State<HomePage> {
           },
           builder: (context, state) {
             final invalidValue =
-                (state is CounterStateValidNumber) ? state.invalidValue : '';
+                (state is CounterStateInvalidNumber) ? state.invalidValue : '';
             return Column(
               children: [
                 Text('Current value => ${state.value}'),
                 Visibility(
-                  visible: state is CounterStateValidNumber,
                   child: Text('Invalid input: $invalidValue'),
+                  visible: state is CounterStateInvalidNumber,
+                ),
+                TextField(
+                  controller: _controller,
+                  decoration: const InputDecoration(
+                    hintText: 'Enter a number here',
+                  ),
+                  keyboardType: TextInputType.number,
+                ),
+                Row(
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        context
+                            .read<CounterBloc>()
+                            .add(DecrementEvent(_controller.text));
+                      },
+                      child: const Text('-'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        context
+                            .read<CounterBloc>()
+                            .add(IncrementEvent(_controller.text));
+                      },
+                      child: const Text('+'),
+                    ),
+                  ],
                 )
               ],
             );
@@ -120,9 +147,9 @@ class CounterStateValid extends CounterState {
   const CounterStateValid(int value) : super(value);
 }
 
-class CounterStateValidNumber extends CounterState {
+class CounterStateInvalidNumber extends CounterState {
   final String invalidValue;
-  const CounterStateValidNumber({
+  const CounterStateInvalidNumber({
     required this.invalidValue,
     required int previousValue,
   }) : super(previousValue);
@@ -146,10 +173,10 @@ class DecrementEvent extends CounterEvent {
 class CounterBloc extends Bloc<CounterEvent, CounterState> {
   CounterBloc() : super(const CounterStateValid(0)) {
     on<IncrementEvent>((event, emit) {
-      final integer = int.parse(event.value);
+      final integer = int.tryParse(event.value);
       if (integer == null) {
         emit(
-          CounterStateValidNumber(
+          CounterStateInvalidNumber(
             invalidValue: event.value,
             previousValue: state.value,
           ),
@@ -159,10 +186,10 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
       }
     });
     on<DecrementEvent>((event, emit) {
-      final integer = int.parse(event.value);
+      final integer = int.tryParse(event.value);
       if (integer == null) {
         emit(
-          CounterStateValidNumber(
+          CounterStateInvalidNumber(
             invalidValue: event.value,
             previousValue: state.value,
           ),
