@@ -1,9 +1,7 @@
-import 'dart:math';
-
-import 'package:flutter_test/flutter_test.dart';
 import 'package:mynotes/services/auth/auth_exceptions.dart';
 import 'package:mynotes/services/auth/auth_provider.dart';
 import 'package:mynotes/services/auth/auth_user.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Mock Authentication', () {
@@ -11,10 +9,11 @@ void main() {
     test('Should not be initialized to begin with', () {
       expect(provider.isInitialized, false);
     });
-    test('cannot log out if not ininialized', () {
+
+    test('Cannot log out if not initialized', () {
       expect(
         provider.logOut(),
-        throwsA(const TypeMatcher<NotInitialiazedException>()),
+        throwsA(const TypeMatcher<NotInitializedException>()),
       );
     });
 
@@ -35,11 +34,13 @@ void main() {
       },
       timeout: const Timeout(Duration(seconds: 2)),
     );
-    test('Create user should delegate to login function', () async {
+
+    test('Create user should delegate to logIn function', () async {
       final badEmailUser = provider.createUser(
         email: 'foo@bar.com',
         password: 'anypassword',
       );
+
       expect(badEmailUser,
           throwsA(const TypeMatcher<UserNotFoundAuthException>()));
 
@@ -49,6 +50,7 @@ void main() {
       );
       expect(badPasswordUser,
           throwsA(const TypeMatcher<WrongPasswordAuthException>()));
+
       final user = await provider.createUser(
         email: 'foo',
         password: 'bar',
@@ -56,15 +58,17 @@ void main() {
       expect(provider.currentUser, user);
       expect(user.isEmailVerified, false);
     });
+
     test('Logged in user should be able to get verified', () {
-      provider.sendEmailverification();
+      provider.sendEmailVerification();
       final user = provider.currentUser;
       expect(user, isNotNull);
       expect(user!.isEmailVerified, true);
     });
-    test('Should be able to login and log out again', () async {
+
+    test('Should be able to log out and log in again', () async {
       await provider.logOut();
-      await provider.login(
+      await provider.logIn(
         email: 'email',
         password: 'password',
       );
@@ -74,7 +78,7 @@ void main() {
   });
 }
 
-class NotInitialiazedException implements Exception {}
+class NotInitializedException implements Exception {}
 
 class MockAuthProvider implements AuthProvider {
   AuthUser? _user;
@@ -82,46 +86,33 @@ class MockAuthProvider implements AuthProvider {
   bool get isInitialized => _isInitialized;
 
   @override
-  //  implement createUser
   Future<AuthUser> createUser({
     required String email,
     required String password,
   }) async {
-    if (!isInitialized) throw NotInitialiazedException();
+    if (!isInitialized) throw NotInitializedException();
     await Future.delayed(const Duration(seconds: 1));
-    return login(
+    return logIn(
       email: email,
       password: password,
     );
   }
 
   @override
-  //  implement currentUser
   AuthUser? get currentUser => _user;
 
   @override
-  //  implement initialize
   Future<void> initialize() async {
     await Future.delayed(const Duration(seconds: 1));
     _isInitialized = true;
   }
 
   @override
-  //implement logOut
-  Future<void> logOut() async {
-    if (!isInitialized) throw NotInitialiazedException();
-    if (_user == null) throw UserNotFoundAuthException();
-    await Future.delayed(const Duration(seconds: 1));
-    _user = null;
-  }
-
-  @override
-  //  implement login
-  Future<AuthUser> login({
+  Future<AuthUser> logIn({
     required String email,
     required String password,
   }) {
-    if (!isInitialized) throw NotInitialiazedException();
+    if (!isInitialized) throw NotInitializedException();
     if (email == 'foo@bar.com') throw UserNotFoundAuthException();
     if (password == 'foobar') throw WrongPasswordAuthException();
     const user = AuthUser(
@@ -134,9 +125,16 @@ class MockAuthProvider implements AuthProvider {
   }
 
   @override
-  //implement sendEmailverification
-  Future<void> sendEmailverification() async {
-    if (!isInitialized) throw NotInitialiazedException();
+  Future<void> logOut() async {
+    if (!isInitialized) throw NotInitializedException();
+    if (_user == null) throw UserNotFoundAuthException();
+    await Future.delayed(const Duration(seconds: 1));
+    _user = null;
+  }
+
+  @override
+  Future<void> sendEmailVerification() async {
+    if (!isInitialized) throw NotInitializedException();
     final user = _user;
     if (user == null) throw UserNotFoundAuthException();
     const newUser = AuthUser(
@@ -148,14 +146,7 @@ class MockAuthProvider implements AuthProvider {
   }
 
   @override
-  Future<AuthUser> logIn({required String email, required String password}) {
-    // TODO: implement logIn
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> sendEmailVerification() {
-    // TODO: implement sendEmailVerification
+  Future<void> sendPasswordReset({required String toEmail}) {
     throw UnimplementedError();
   }
 }
