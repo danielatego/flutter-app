@@ -17,7 +17,15 @@ class CounterPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           FloatingActionButton(
-              child: const Icon(Icons.add), onPressed: onPressed)
+              child: const Icon(Icons.add),
+              onPressed: () => context.read<CounterCubit>().increment()),
+          const SizedBox(
+            height: 4,
+          ),
+          FloatingActionButton(
+            child: const Icon(Icons.remove),
+            onPressed: () => context.read<CounterCubit>().decrement(),
+          ),
         ],
       ),
     );
