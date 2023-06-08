@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learningflutter/blocComponents/counter_cubit.dart';
 import 'package:learningflutter/blocComponents/counter_page.dart';
 
-void main() => runApp(CounterApp());
+void main() => runApp(const CounterApp());
 
 class CounterApp extends StatelessWidget {
   const CounterApp({super.key});
@@ -11,8 +11,8 @@ class CounterApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: BlocProvider(
-        create: (_) => CounterCubit(),
+      home: BlocProvider<CounterCubit>(
+        create: (BuildContext context) => CounterCubit(),
         child: const CounterPage(),
       ),
     );
