@@ -19,7 +19,8 @@ class NotesView extends StatefulWidget {
   const NotesView({Key? key}) : super(key: key);
 
   @override
-  _NotesViewState createState() => _NotesViewState();
+  State<StatefulWidget> createState() => _NotesViewState();
+  //_NotesViewState createState() => _NotesViewState();
 }
 
 class _NotesViewState extends State<NotesView> {
