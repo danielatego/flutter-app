@@ -11,7 +11,7 @@ class CreateUpdateNoteView extends StatefulWidget {
   const CreateUpdateNoteView({Key? key}) : super(key: key);
 
   @override
-  _CreateUpdateNoteViewState createState() => _CreateUpdateNoteViewState();
+  State<CreateUpdateNoteView> createState() => _CreateUpdateNoteViewState();
 }
 
 class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
@@ -52,10 +52,10 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
       return widgetNote;
     }
 
-    final existingNote = _note;
-    if (existingNote != null) {
-      return existingNote;
-    }
+    // final existingNote = _note;
+    // if (existingNote != null) {
+    //   return existingNote;
+    // }
     final currentUser = AuthService.firebase().currentUser!;
     final userId = currentUser.id;
     final newNote = await _notesService.createNewNote(ownerUserId: userId);

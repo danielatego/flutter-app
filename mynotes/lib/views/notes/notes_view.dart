@@ -39,7 +39,7 @@ class _NotesViewState extends State<NotesView> {
       appBar: AppBar(
         title: StreamBuilder(
           stream: _notesService.allNotes(ownerUserId: userId).getLength,
-          builder: (context, AsyncSnapshot<int> snapshot) {
+          builder: (context, snapshot) {
             if (snapshot.hasData) {
               final noteCount = snapshot.data ?? 0;
               final text = context.loc.notes_title(noteCount);
