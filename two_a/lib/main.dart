@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:two_a/extensions/buildcontext/loc.dart';
 //import 'package:firebase_core/firebase_core.dart';
 //import 'firebase_options.dart';
 
 void main() {
-  runApp(const MainApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(
+    const MaterialApp(
+      title: '2A',
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      home: MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -11,10 +21,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: Text('Hello World!'),
+          child: Text(context.loc.helloWorld),
         ),
       ),
     );
