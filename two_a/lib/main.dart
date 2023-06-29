@@ -7,11 +7,15 @@ import 'package:two_a/extensions/buildcontext/loc.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
-    const MaterialApp(
+    MaterialApp(
       title: '2A',
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: MainApp(),
+      theme: ThemeData(
+        scaffoldBackgroundColor: const Color(0XFFF5F5F5),
+        fontFamily: 'roboto',
+      ),
+      home: const MainApp(),
     ),
   );
 }
@@ -23,6 +27,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Center(
           child: Text(context.loc.helloWorld),
         ),
