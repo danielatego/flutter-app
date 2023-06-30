@@ -13,7 +13,7 @@ void main() {
       supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0XFFF5F5F5),
-        fontFamily: 'roboto',
+        fontFamily: 'Roboto',
       ),
       home: const MainApp(),
     ),
