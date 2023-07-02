@@ -69,26 +69,57 @@ class FireAuth implements Provider {
       } else {
         throw UserNotLoggedInAuthException();
       }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-email') {
+        throw InvalidEmailAuthException();
+      } else if (e.code == 'user-disabled') {
+        throw AccountDisabledAuthException();
+      } else if (e.code == 'user-not-found' || e.code == 'wrong-password') {
+        throw WrongDetailsAuthException();
+      } else {
+        throw GenericAuthException();
+      }
     } catch (_) {
       throw GenericAuthException();
     }
   }
 
   @override
-  Future<void> logOut() {
-    // TODO: implement logOut
-    throw UnimplementedError();
+  Future<void> logOut() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      await FirebaseAuth.instance.signOut();
+    } else {
+      throw UserNotLoggedInAuthException();
+    }
   }
 
   @override
-  Future<void> sendEmailVerification() {
-    // TODO: implement sendEmailVerification
-    throw UnimplementedError();
+  Future<void> sendEmailVerification() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      await user.sendEmailVerification();
+    } else {
+      throw UserNotLoggedInAuthException();
+    }
   }
 
   @override
-  Future<void> sendPassWordReset({required String email}) {
-    // TODO: implement sendPassWordReset
+  Future<void> sendPassWordReset({required String email}) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(
+        email: email,
+      );
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'auth/invalid-email':
+          throw InvalidEmailAuthException();
+        case 'auth/user-not-found':
+          throw UserNotFoundAuthException();
+        default:
+          throw GenericAuthException();
+      }
+    }
     throw UnimplementedError();
   }
 }
