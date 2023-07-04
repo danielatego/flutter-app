@@ -118,7 +118,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           const AuthStateForgotPassword(
             exception: null,
             hasSentEmail: false,
-            isLoading: false,
+            isLoading: true,
           ),
         );
         bool didSendEmail;
