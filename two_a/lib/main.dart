@@ -1,16 +1,15 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:two_a/extensions/buildcontext/loc.dart';
 import 'package:two_a/firebase/authentication/fireauth.dart';
-import 'package:two_a/firebase/authentication/provider.dart';
 import 'package:two_a/firebase/bloc/auth_bloc.dart';
 import 'package:two_a/firebase/bloc/auth_event.dart';
 import 'package:two_a/firebase/bloc/auth_state.dart';
-//import 'package:firebase_core/firebase_core.dart';
-//import 'firebase_options.dart';
+import 'package:two_a/helpers/loading/loading_screen.dart';
+import 'package:two_a/views/forgot_password_view.dart';
+import 'package:two_a/views/homepage_view.dart';
+import 'package:two_a/views/login_view.dart';
+import 'package:two_a/views/verify_email_view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,17 +37,31 @@ class HomePage2A extends StatelessWidget {
     context.read<AuthBloc>().add(const AuthEventInitialize());
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state.isLoading) {}
+        if (state.isLoading) {
+          LoadingScreen().show(
+              context: context,
+              text: state.loadingText ?? "Please wait a moment");
+        } else {
+          LoadingScreen().hide();
+        }
       },
-      builder: (context, state) {},
+      builder: (context, state) {
+        if (state is AuthStateLoggedIn) {
+          return const HomeView();
+        } else if (state is AuthStateNeedsVerification) {
+          return const VerifyEmailView();
+        } else if (state is AuthStateLoggedOut) {
+          return const LoginView();
+        } else if (state is AuthStateForgotPassword) {
+          return const ForgotPasswordView();
+        } else {
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+      },
     );
   }
 }
-// return MaterialApp(
-//       home: Scaffold(
-//         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-//         body: Center(
-//           child: Text(context.loc.helloWorld),
-//         ),
-//       ),
-//     );
