@@ -1,3 +1,5 @@
 {
-    "helloWorld":"¡Hola Mundo!"
+    "helloWorld":"¡Hola Mundo!",
+    "ok": "Ok",
+    "generic_error_prompt":"An error occurred"
 }

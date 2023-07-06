@@ -2,5 +2,10 @@
     "helloWorld": "Hello World!",
     "@helloWorld":{
         "description":"The conventional newborn programmer greeting"
-    }
+    },
+    "ok": "Ok",
+    "generic_error_prompt":"An error occurred",
+    "login_error_cannot_find_user":"Cannot find a user with the entered credentials",
+    "login_error_wrong_credentials":"Wrong credentials",
+    "login":"Login"
 }
