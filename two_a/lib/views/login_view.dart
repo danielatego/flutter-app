@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:two_a/extensions/buildcontext/loc.dart';
 import 'package:two_a/firebase/authentication/exceptions.dart';
 import 'package:two_a/firebase/bloc/auth_bloc.dart';
 import 'package:two_a/firebase/bloc/auth_state.dart';
-
+import 'package:two_a/utilities/dialogs/error_dialog.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -17,13 +18,14 @@ class _LoginViewState extends State<LoginView> {
   late final TextEditingController _password;
 
   @override
-  void initState(){
+  void initState() {
     _email = TextEditingController();
     _password = TextEditingController();
     super.initState();
   }
+
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
     _email.dispose();
     _password.dispose();
@@ -31,15 +33,33 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
+    final scalefactor = MediaQuery.of(context).size.height / 667;
     return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) async{
-        if (state is AuthStateLoggedOut){
-          if(state.exception is UserNotFoundAuthException || state.exception is WrongDetailsAuthException){
-            await 
+      listener: (context, state) async {
+        if (state is AuthStateLoggedOut) {
+          if (state.exception is UserNotFoundAuthException ||
+              state.exception is WrongDetailsAuthException) {
+            await showErrorDialog(
+                context, context.loc.login_error_cannot_find_user);
+          } else if (state.exception is GenericAuthException) {
+            await showErrorDialog(
+              context,
+              context.loc.login_error_wrong_credentials,
+            );
           }
         }
       },
-      child: Container(),
-    )
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: (36 * scalefactor),
+          title: Text(
+            context.loc.login,
+            style: Theme.of(context).textTheme.titleMedium,
+            textScaleFactor: scalefactor,
+          ),
+        ),
+        body: ,
+      ),
+    );
   }
 }
