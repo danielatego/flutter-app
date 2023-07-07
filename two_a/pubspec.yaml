@@ -34,4 +34,6 @@ flutter:
       fonts:
         - asset: fonts/Roboto-Regular.ttf
         - asset: fonts/Roboto-Medium.ttf
+        - asset: fonts/Roboto-Thin.ttf
+        - asset: fonts/Roboto-Light.ttf
     

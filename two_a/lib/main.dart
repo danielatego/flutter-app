@@ -19,21 +19,26 @@ void main() {
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         theme: ThemeData(
-            appBarTheme: const AppBarTheme(
-              backgroundColor: Color(0XFF0BAADA),
-              shadowColor: null,
-              foregroundColor: Color(0xfff5f5f5),
-              toolbarHeight: 36.0,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Color(0XFF0BAADA),
+            shadowColor: null,
+            foregroundColor: Color(0xff000000),
+            toolbarHeight: 36.0,
+          ),
+          scaffoldBackgroundColor: const Color(0XFFF5F5F5),
+          fontFamily: 'Roboto',
+          textTheme: const TextTheme(
+            titleMedium: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: Color(0XFFF5F5F5),
             ),
-            scaffoldBackgroundColor: const Color(0XFFF5F5F5),
-            fontFamily: 'Roboto',
-            textTheme: const TextTheme(
-              titleMedium: TextStyle(
+            labelMedium: TextStyle(
                 fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: Color(0XFFF5F5F5),
-              ),
-            )),
+                fontWeight: FontWeight.normal,
+                color: Color(0XFF808080)),
+          ),
+        ),
         home: BlocProvider<AuthBloc>(
           create: (context) => AuthBloc(FireAuth()),
           child: const HomePage2A(),

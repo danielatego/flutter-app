@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:two_a/extensions/buildcontext/loc.dart';
 import 'package:two_a/firebase/authentication/exceptions.dart';
 import 'package:two_a/firebase/bloc/auth_bloc.dart';
+import 'package:two_a/firebase/bloc/auth_event.dart';
 import 'package:two_a/firebase/bloc/auth_state.dart';
 import 'package:two_a/utilities/dialogs/error_dialog.dart';
 
@@ -35,6 +36,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     final sf = MediaQuery.of(context).size.height / 667;
+    final wf = MediaQuery.of(context).size.width / 375;
 
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) async {
@@ -60,13 +62,116 @@ class _LoginViewState extends State<LoginView> {
             textScaleFactor: sf,
           ),
         ),
-        body: Container(
-          margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-          padding: EdgeInsets.fromLTRB(0, (36 * sf), 0, 0),
-          child: SvgPicture.asset(
-            'images/logo.svg',
-            semanticsLabel: 'My SVG Image',
-            height: 64 * sf,
+        body: SingleChildScrollView(
+          child: Container(
+            margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+            padding: EdgeInsets.fromLTRB(0, (36 * sf), 0, 0),
+            child: Center(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      'images/logo.svg',
+                      semanticsLabel: 'My SVG Image',
+                      height: 64 * sf,
+                    ),
+                    Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, (sf * 16))),
+                    Text(
+                      context.loc.while_we_can,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: (16 * wf),
+                        fontWeight: FontWeight.w200,
+                      ),
+                    ),
+                    Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, (sf * 117))),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 48 * wf,
+                        vertical: 0,
+                      ),
+                      child: TextField(
+                        controller: _email,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        keyboardType: TextInputType.emailAddress,
+                        style: TextStyle(
+                            fontSize: 16 * wf,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            gapPadding: 0.0,
+                            borderSide: const BorderSide(
+                              color: Color(0XFF838383),
+                            ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(8 * sf)),
+                          ),
+                          hintText: context.loc.email_text_field_placeholder,
+                          hintStyle: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: (16 * wf),
+                            color: const Color(0XFF808080),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, (sf * 24))),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 48 * wf,
+                        vertical: 0,
+                      ),
+                      child: TextField(
+                        controller: _password,
+                        obscureText: true,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        keyboardType: TextInputType.visiblePassword,
+                        style: TextStyle(
+                            fontSize: 16 * wf,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0XFF838383),
+                            ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(8 * sf)),
+                          ),
+                          hintText: context.loc.password_text_field_placeholder,
+                          hintStyle: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: (16 * wf),
+                            color: const Color(0XFF808080),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, (sf * 24))),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 48 * wf,
+                        vertical: 0,
+                      ),
+                      child: TextButton(
+                        onPressed: () async {
+                          final email = _email.text;
+                          final password = _password.text;
+                          context.read<AuthBloc>().add(
+                                AuthEventLogin(
+                                  email,
+                                  password,
+                                ),
+                              );
+                        },
+                        child: Text(context.loc.login),
+                      ),
+                    )
+                  ]),
+            ),
           ),
         ),
       ),
