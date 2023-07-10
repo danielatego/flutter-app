@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:two_a/extensions/buildcontext/loc.dart';
 import 'package:two_a/firebase/authentication/exceptions.dart';
 import 'package:two_a/firebase/bloc/auth_bloc.dart';
@@ -37,7 +36,8 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     final sf = MediaQuery.of(context).size.height / 667;
     final wf = MediaQuery.of(context).size.width / 375;
-
+    print(sf);
+    print(wf);
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) async {
         if (state is AuthStateLoggedOut) {
@@ -70,10 +70,10 @@ class _LoginViewState extends State<LoginView> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SvgPicture.asset(
-                      'images/logo.svg',
-                      semanticsLabel: 'My SVG Image',
+                    Image.asset(
+                      'images/logo/logo.png',
                       height: 64 * sf,
+                      width: 64 * sf,
                     ),
                     Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, (sf * 16))),
                     Text(
