@@ -156,7 +156,7 @@ class _LoginViewState extends State<LoginView> {
                         horizontal: 48 * wf,
                         vertical: 0,
                       ),
-                      child: TextButton(
+                      child: FilledButton(
                         onPressed: () async {
                           final email = _email.text;
                           final password = _password.text;
@@ -167,6 +167,15 @@ class _LoginViewState extends State<LoginView> {
                                 ),
                               );
                         },
+                        style: FilledButton.styleFrom(
+                            alignment: Alignment.center,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8 * wf)),
+                            fixedSize: Size(240 * wf, 40 * sf),
+                            textStyle: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: (20 * wf),
+                            )),
                         child: Text(context.loc.login),
                       ),
                     )

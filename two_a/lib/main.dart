@@ -12,6 +12,7 @@ import 'package:two_a/views/login_view.dart';
 import 'package:two_a/views/verify_email_view.dart';
 
 void main() {
+  const wf = MediaQuery;
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MaterialApp(
@@ -24,6 +25,11 @@ void main() {
             shadowColor: null,
             foregroundColor: Color(0xff000000),
             toolbarHeight: 36.0,
+          ),
+          filledButtonTheme: FilledButtonThemeData(
+            style: FilledButton.styleFrom(
+                backgroundColor: const Color(0xff808080),
+                fixedSize: const Size(240, 40)),
           ),
           scaffoldBackgroundColor: const Color(0XFFF5F5F5),
           fontFamily: 'Roboto',
