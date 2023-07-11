@@ -9,10 +9,10 @@ import 'package:two_a/helpers/loading/loading_screen.dart';
 import 'package:two_a/views/forgot_password_view.dart';
 import 'package:two_a/views/homepage_view.dart';
 import 'package:two_a/views/login_view.dart';
+import 'package:two_a/views/register_view.dart';
 import 'package:two_a/views/verify_email_view.dart';
 
 void main() {
-  const wf = MediaQuery;
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MaterialApp(
@@ -41,8 +41,8 @@ void main() {
             ),
             labelMedium: TextStyle(
                 fontSize: 16,
-                fontWeight: FontWeight.normal,
-                color: Color(0XFF808080)),
+                fontWeight: FontWeight.w500,
+                decorationColor: Color(0XFF808080)),
           ),
         ),
         home: BlocProvider<AuthBloc>(
@@ -77,6 +77,8 @@ class HomePage2A extends StatelessWidget {
           return const LoginView();
         } else if (state is AuthStateForgotPassword) {
           return const ForgotPasswordView();
+        } else if (state is AuthStateRegistering) {
+          return const RegisterView();
         } else {
           return const Scaffold(
             body: Center(

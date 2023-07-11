@@ -10,7 +10,10 @@
     "login":"Login",
     "while_we_can":"While we can",
     "email_text_field_placeholder":"Email address",
-    "password_text_field_placeholder":"Password"
+    "password_text_field_placeholder":"Password",
+    "sign_up_instead":"Sign Up Instead ?",
+    "forgot_password":"Forgot password ?"
+
 
 
 }
