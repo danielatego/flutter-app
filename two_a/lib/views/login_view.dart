@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:two_a/components/app_bar.dart';
+import 'package:two_a/components/mediaquery.dart';
 import 'package:two_a/extensions/buildcontext/loc.dart';
 import 'package:two_a/firebase/authentication/exceptions.dart';
 import 'package:two_a/firebase/bloc/auth_bloc.dart';
@@ -34,13 +36,11 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    var sf = (MediaQuery.of(context).size.height - 30.3) / 667;
-    var wf = MediaQuery.of(context).size.width / 375;
-    if (MediaQuery.of(context).orientation == Orientation.landscape) {
-      sf = 1.2;
-      wf = 1.2;
-    }
-    print(MediaQuery.of(context));
+    var media = MQuery(context: context);
+    final sf = media.heightscalefactor();
+    final wf = media.widthScalefactor();
+    final mf = media.heigthmarginfactor();
+
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) async {
         if (state is AuthStateLoggedOut) {
@@ -57,17 +57,18 @@ class _LoginViewState extends State<LoginView> {
         }
       },
       child: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: (36 * sf),
-          title: Text(
-            context.loc.login,
-            style: Theme.of(context).textTheme.titleMedium,
-            textScaleFactor: wf,
-          ),
-        ),
+        appBar: CustomAppbar(context: context, locTitle: context.loc.login),
+        // appBar: AppBar(
+        //   toolbarHeight: (36 * sf),
+        //   title: Text(
+        //     context.loc.login,
+        //     style: Theme.of(context).textTheme.titleMedium,
+        //     textScaleFactor: wf,
+        //   ),
+        // ),
         body: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.fromLTRB(0, (36 * sf), 0, 0),
+            padding: EdgeInsets.fromLTRB(0, (36 * mf), 0, 0),
             child: Column(
               children: [
                 Image.asset(
@@ -76,7 +77,7 @@ class _LoginViewState extends State<LoginView> {
                   width: 64 * sf,
                   fit: BoxFit.cover,
                 ),
-                Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, (sf * 16))),
+                Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, (mf * 16))),
                 Text(
                   context.loc.while_we_can,
                   style: TextStyle(
@@ -85,7 +86,7 @@ class _LoginViewState extends State<LoginView> {
                     fontWeight: FontWeight.w200,
                   ),
                 ),
-                Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, (sf * 120))),
+                Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, (mf * 120))),
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: 68 * wf,
@@ -120,7 +121,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                 ),
-                Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, (sf * 24))),
+                Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, (mf * 24))),
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: 68 * wf,
@@ -154,7 +155,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                 ),
-                Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, (sf * 24))),
+                Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, (mf * 24))),
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: 48 * wf,
@@ -183,40 +184,48 @@ class _LoginViewState extends State<LoginView> {
                     child: Text(context.loc.login),
                   ),
                 ),
-                Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, (sf * 120))),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  TextButton(
-                    onPressed: () async {
-                      context.read<AuthBloc>().add(
-                            const AuthEventShouldRegister(),
-                          );
-                    },
-                    style: TextButton.styleFrom(
-                      foregroundColor: const Color(0xff838383),
-                      textStyle:
-                          (Theme.of(context).textTheme.labelMedium!.copyWith(
-                                fontSize: 16 * wf,
-                              )),
-                    ),
-                    child: Text(context.loc.sign_up_instead),
-                  ),
-                  Padding(padding: EdgeInsets.fromLTRB(0, 0, 60 / wf, 0)),
-                  TextButton(
-                    onPressed: () async {
-                      context.read<AuthBloc>().add(
-                            const AuthEventForgotPassword(null),
-                          );
-                    },
-                    style: TextButton.styleFrom(
-                      foregroundColor: const Color(0xff838383),
-                      textStyle:
-                          (Theme.of(context).textTheme.labelMedium!.copyWith(
-                                fontSize: 16 * wf,
-                              )),
-                    ),
-                    child: Text(context.loc.forgot_password),
-                  )
-                ])
+                Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, (mf * 120))),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16 * wf),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                          onPressed: () async {
+                            context.read<AuthBloc>().add(
+                                  const AuthEventShouldRegister(),
+                                );
+                          },
+                          style: TextButton.styleFrom(
+                            foregroundColor: const Color(0xff838383),
+                            textStyle: (Theme.of(context)
+                                .textTheme
+                                .labelMedium!
+                                .copyWith(
+                                  fontSize: 16 * wf,
+                                )),
+                          ),
+                          child: Text(context.loc.sign_up_instead),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            context.read<AuthBloc>().add(
+                                  const AuthEventForgotPassword(null),
+                                );
+                          },
+                          style: TextButton.styleFrom(
+                            foregroundColor: const Color(0xff838383),
+                            textStyle: (Theme.of(context)
+                                .textTheme
+                                .labelMedium!
+                                .copyWith(
+                                  fontSize: 16 * wf,
+                                )),
+                          ),
+                          child: Text(context.loc.forgot_password),
+                        )
+                      ]),
+                )
               ],
             ),
           ),
