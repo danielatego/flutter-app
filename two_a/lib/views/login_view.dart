@@ -57,15 +57,10 @@ class _LoginViewState extends State<LoginView> {
         }
       },
       child: Scaffold(
-        appBar: CustomAppbar(context: context, locTitle: context.loc.login),
-        // appBar: AppBar(
-        //   toolbarHeight: (36 * sf),
-        //   title: Text(
-        //     context.loc.login,
-        //     style: Theme.of(context).textTheme.titleMedium,
-        //     textScaleFactor: wf,
-        //   ),
-        // ),
+        appBar: CustomAppbar(
+          context: context,
+          locTitle: context.loc.login,
+        ),
         body: SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.fromLTRB(0, (36 * mf), 0, 0),

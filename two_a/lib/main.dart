@@ -24,7 +24,7 @@ void main() {
             backgroundColor: Color(0XFF0BAADA),
             shadowColor: null,
             foregroundColor: Color(0xff000000),
-            toolbarHeight: 36.0,
+            //toolbarHeight: 36.0,
           ),
           filledButtonTheme: FilledButtonThemeData(
             style: FilledButton.styleFrom(

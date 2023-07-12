@@ -13,13 +13,13 @@ class CustomAppbar extends AppBar {
         textScaleFactor: wf(),
       );
 
-  @override
-  double? get toolbarHeight => (toolHeight * 45);
-
   double sf() {
     var media = MQuery(context: context);
     return media.heightscalefactor();
   }
+
+  @override
+  Size get preferredSize => Size.fromHeight(toolHeight * sf());
 
   double wf() {
     var media = MQuery(context: context);
