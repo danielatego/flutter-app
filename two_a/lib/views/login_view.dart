@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:two_a/components/app_bar.dart';
 import 'package:two_a/components/mediaquery.dart';
+import 'package:two_a/components/text_style.dart';
 import 'package:two_a/extensions/buildcontext/loc.dart';
 import 'package:two_a/firebase/authentication/exceptions.dart';
 import 'package:two_a/firebase/bloc/auth_bloc.dart';
@@ -60,6 +61,7 @@ class _LoginViewState extends State<LoginView> {
         appBar: CustomAppbar(
           context: context,
           locTitle: context.loc.login,
+          scaleFactor: [sf, mf, wf],
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -73,14 +75,14 @@ class _LoginViewState extends State<LoginView> {
                   fit: BoxFit.cover,
                 ),
                 Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, (mf * 16))),
-                Text(
-                  context.loc.while_we_can,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: (16 * wf),
-                    fontWeight: FontWeight.w200,
-                  ),
-                ),
+                Text(context.loc.while_we_can,
+                    style: CustomTextStyle(
+                      context: context,
+                      fontSz: 16,
+                      fontWght: Fontweight.w200,
+                      scaleFactor: wf,
+                      colour: FontColour.black,
+                    )),
                 Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, (mf * 120))),
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -108,10 +110,12 @@ class _LoginViewState extends State<LoginView> {
                         borderRadius: BorderRadius.all(Radius.circular(8 * sf)),
                       ),
                       hintText: context.loc.email_text_field_placeholder,
-                      hintStyle: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: (16 * wf),
-                        color: const Color(0XFF808080),
+                      hintStyle: CustomTextStyle(
+                        context: context,
+                        fontSz: 16,
+                        fontWght: Fontweight.w400,
+                        scaleFactor: wf,
+                        colour: FontColour.hintblack,
                       ),
                     ),
                   ),
@@ -133,21 +137,23 @@ class _LoginViewState extends State<LoginView> {
                         fontWeight: FontWeight.normal,
                         color: Colors.black),
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 14 * sf, horizontal: 11 * wf),
-                      border: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Color(0XFF838383),
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 14 * sf, horizontal: 11 * wf),
+                        border: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            color: Color(0XFF838383),
+                          ),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(8 * sf)),
                         ),
-                        borderRadius: BorderRadius.all(Radius.circular(8 * sf)),
-                      ),
-                      hintText: context.loc.password_text_field_placeholder,
-                      hintStyle: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: (16 * wf),
-                        color: const Color(0XFF808080),
-                      ),
-                    ),
+                        hintText: context.loc.password_text_field_placeholder,
+                        hintStyle: CustomTextStyle(
+                          context: context,
+                          fontSz: 16,
+                          fontWght: Fontweight.w400,
+                          scaleFactor: wf,
+                          colour: FontColour.hintblack,
+                        )),
                   ),
                 ),
                 Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, (mf * 24))),
