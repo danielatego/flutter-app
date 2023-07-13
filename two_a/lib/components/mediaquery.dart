@@ -27,5 +27,11 @@ class MQuery {
     }
   }
 
+  List<double> widthHeight() {
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+    return [width, height];
+  }
+
   MQuery({required this.context});
 }

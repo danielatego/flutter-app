@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:two_a/extensions/buildcontext/loc.dart';
 
 enum Fontweight { w100, w200, w400, w500 }
 
@@ -8,7 +9,6 @@ class CustomTextStyle extends TextStyle {
   final BuildContext context;
   final double fontSz;
   final Fontweight fontWght;
-  final double scaleFactor;
   final FontColour colour;
 
   @override
@@ -45,13 +45,12 @@ class CustomTextStyle extends TextStyle {
   }
 
   @override
-  double? get fontSize => fontSz * scaleFactor;
+  double? get fontSize => fontSz * context.scaleFactor[1];
 
   const CustomTextStyle({
     required this.context,
     required this.fontSz,
     required this.fontWght,
-    required this.scaleFactor,
     required this.colour,
   });
 }
